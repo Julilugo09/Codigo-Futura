@@ -55,7 +55,7 @@
                 },
                 "durability": "persistent",
                 "val": {
-                  "u32": 1
+                  "u32": 2
                 }
               }
             },
@@ -153,7 +153,7 @@
                           ]
                         },
                         "val": {
-                          "u32": 1
+                          "u32": 2
                         }
                       },
                       {
@@ -320,10 +320,19 @@
                 "bytes": "0000000000000000000000000000000000000000000000000000000000000001"
               },
               {
-                "symbol": "get_contador"
+                "symbol": "hello"
               }
             ],
-            "data": "void"
+            "data": {
+              "vec": [
+                {
+                  "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHK3M"
+                },
+                {
+                  "string": "Ana"
+                }
+              ]
+            }
           }
         }
       },
@@ -341,11 +350,11 @@
                 "symbol": "fn_return"
               },
               {
-                "symbol": "get_contador"
+                "symbol": "hello"
               }
             ],
             "data": {
-              "u32": 1
+              "symbol": "Hola"
             }
           }
         }
@@ -367,7 +376,7 @@
                 "bytes": "0000000000000000000000000000000000000000000000000000000000000001"
               },
               {
-                "symbol": "get_ultimo_saludo"
+                "symbol": "get_contador_usuario"
               }
             ],
             "data": {
@@ -390,11 +399,11 @@
                 "symbol": "fn_return"
               },
               {
-                "symbol": "get_ultimo_saludo"
+                "symbol": "get_contador_usuario"
               }
             ],
             "data": {
-              "string": "Ana"
+              "u32": 2
             }
           }
         }

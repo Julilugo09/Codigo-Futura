@@ -63,6 +63,18 @@
                         "val": {
                           "u32": 0
                         }
+                      },
+                      {
+                        "key": {
+                          "vec": [
+                            {
+                              "symbol": "LimiteCaracteres"
+                            }
+                          ]
+                        },
+                        "val": {
+                          "u32": 32
+                        }
                       }
                     ]
                   }
