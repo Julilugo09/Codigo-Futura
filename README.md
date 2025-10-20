@@ -1,108 +1,173 @@
-# 🪙 Código Futura — Stellar Wallet  
-Pequeña **wallet de consola** construida con `@stellar/stellar-sdk` sobre la **Testnet de Stellar**.  
-Permite crear cuentas, consultar balances y enviar pagos de forma automatizada desde la terminal.  
+# 🪙 Código Futura — Stellar & Soroban Projects
+
+Repositorio de prácticas del programa **Código Futura**, con proyectos semanales que consolidan los fundamentos de **blockchain, Stellar SDK y Soroban (Rust)**.
+
+Cada carpeta contiene ejercicios guiados, retos opcionales y reflexiones para desarrollar pensamiento lógico y habilidades de programación sobre la red Stellar 🌟.
 
 ---
 
-## 🧭 Descripción general  
-Este proyecto forma parte de la **Tarea 2 — Fundamentos de Programación Stellar** del programa Código Futura.  
-El objetivo fue consolidar los conocimientos sobre el SDK de Stellar y la interacción con la red mediante JavaScript, aplicando los patrones esenciales de manejo de cuentas, pagos y balances.
+## 📅 Semana 1 — Tarea 2
 
-La wallet implementa un **menú interactivo** en consola que permite realizar operaciones básicas de blockchain sin necesidad de interfaz gráfica.  
-Sirve como base para entender la lógica detrás de wallets reales y preparar el camino hacia los **smart contracts en Rust (Soroban)**.  
+# 💼 Stellar Wallet de Consola
 
-**Funciones principales:**
-- 🆕 Crear cuentas y fondearlas con Friendbot.  
-- 💸 Enviar pagos únicos o múltiples en serie.  
-- 👀 Consultar balances y trustlines.  
-- ⚙️ Calcular tarifas de red (fees) según número de operaciones.  
-- 🧾 Revisar historial de transacciones recientes.  
+Pequeña **wallet de consola** construida con `@stellar/stellar-sdk` sobre la **Testnet de Stellar**.
+Permite crear cuentas, consultar balances y enviar pagos desde la terminal, aplicando los fundamentos del SDK de Stellar.
 
----
+### 🧭 Descripción general
 
-## ⚙️ Requisitos  
+Esta tarea buscó **dominar la API de Stellar** desde JavaScript y entender cómo se gestionan las cuentas y transacciones reales, pero en un entorno seguro (testnet).
+El objetivo fue crear una wallet educativa que interactúa directamente con Horizon y permite automatizar operaciones.
 
-Antes de ejecutar el proyecto, asegúrate de tener:  
-- **Node.js** (versión 18 o superior)  
-- **npm** o **yarn** instalado  
-- Conexión a Internet (usa la red de prueba de Stellar: `https://horizon-testnet.stellar.org`)  
+### 🚀 Funcionalidades principales
 
----
+* 🆕 Crear y fondear cuentas usando **Friendbot**
+* 💸 Enviar pagos con **memos únicos**
+* 👀 Consultar balances y trustlines
+* ⚙️ Calcular tarifas de red según número de operaciones
+* 🧾 Consultar historial de transacciones
 
-## 🚀 Instalación y uso  
+### ⚙️ Requisitos
 
-1. **Clona el repositorio:**  
-   ```bash
-   git clone https://github.com/Julilugo09/Codigo-Futura.git
-   cd Codigo-Futura
-   ```
+* Node.js ≥ 18
+* npm o yarn
+* Conexión a Internet
+* Endpoint de la red: `https://horizon-testnet.stellar.org`
 
-2. **Instala las dependencias:**  
-   ```bash
-   npm install
-   ```
+### 🧩 Instalación y uso
 
-3. **Ejecuta la wallet en consola:**  
-   ```bash
-   node wallet.js
-   ```
-   O el archivo correspondiente a cada ejercicio:  
-   - `crear-cuenta.js`  
-   - `enviar-pago.js`  
-   - `consultar-balance.js`  
+```bash
+git clone https://github.com/Julilugo09/Codigo-Futura.git
+cd Codigo-Futura
+npm install
+node wallet.js
+```
 
----
+También puedes ejecutar scripts individuales:
 
-## 🔍 Funcionamiento de la wallet paso a paso  
+* `crear-cuenta.js`
+* `enviar-pago.js`
+* `consultar-balance.js`
 
-### 1️⃣ Creación y fondeo de cuentas  
-El script genera pares de claves (`publicKey`, `secretKey`) usando `StellarSdk.Keypair.random()`.  
-Luego, envía una solicitud a **Friendbot**, el servicio de Stellar Testnet que fondea cuentas nuevas con 10.000 XLM de prueba.  
+### 🔍 Flujo principal
 
-> Cada cuenta se guarda en un array con su información y balance inicial mostrado en consola.
+1. **Creación de cuentas** → genera claves con `Keypair.random()` y fondea con Friendbot.
+2. **Pagos** → envía XLM entre cuentas con `TransactionBuilder` y `await`.
+3. **Balances** → consulta información de varias cuentas en serie.
+4. **Menú interactivo** → simula una wallet real desde terminal.
 
-### 2️⃣ Envío de pagos  
-El sistema automatiza el envío de pagos entre múltiples cuentas:  
-- Envía **2 XLM** a tres destinatarios.  
-- Cada pago incluye un **memo único** que identifica la transacción (ej. `Pago-001`).  
-- Verifica en consola el **hash de la transacción** y el estado final.  
-- Usa promesas y `await` para ejecutar las operaciones en serie, garantizando que cada una se complete antes de continuar.
+### 🧠 Conceptos clave
 
-### 3️⃣ Consulta de balances  
-Permite ingresar un array de `publicKeys` y muestra:  
-- Balance de XLM disponible.  
-- Número de trustlines activas.  
-- Número de secuencia (`sequence number`) actual.  
+* Estructura de una transacción Stellar (source, operations, fee, memo)
+* Firmas locales y envío seguro al servidor Horizon
+* Lógica de wallet sin interfaz gráfica
+* Programación asíncrona (`async/await`)
 
-> La salida está formateada para facilitar la lectura de varias cuentas al tiempo.
-
-### 4️⃣ Menú de la wallet (interactivo)  
-Desde `wallet.js` puedes acceder a un menú con tres herramientas:  
-- 💸 **Airdrop automático:** crea nuevas cuentas y las fondea usando Friendbot.  
-- 👁️ **Monitor de balance:** revisa balances y trustlines de cualquier cuenta.  
-- ⚙️ **Calculadora de fees:** estima el costo de transacciones según número de operaciones (útil para entender la estructura de comisiones de Stellar).  
-
-> Todo corre en terminal. Ideal para aprender la mecánica interna de una wallet sin depender de interfaces gráficas.
+> “No busques perfección, busca progreso. Cada línea de código te acerca más a construir tu futuro.” 🦈⚡
 
 ---
 
-## 🧠 Cómo funciona la wallet internamente  
+## 📅 Semana 2 — Tarea 3
 
-- Se conecta a **Horizon Testnet**, el servidor de API pública de Stellar (`https://horizon-testnet.stellar.org`).  
-- Cada cuenta se maneja mediante un **Keypair**, formado por una clave pública (identidad visible) y una clave secreta (firma de transacciones).  
-- Las transacciones se crean con `StellarSdk.TransactionBuilder`, se firman localmente y luego se envían al servidor Horizon.  
-- El sistema usa `async/await` para manejar las operaciones de red de forma secuencial.  
-- Todos los datos se imprimen en consola, simulando el flujo de una wallet real: generación, fondeo, transacción y monitoreo.
+# 🦈 Hello Tiburona Profesional — Smart Contract (Soroban + Rust)
+
+Proyecto que traslada los fundamentos aprendidos en la semana anterior al mundo de los **smart contracts en Rust**, usando **Soroban**, el motor de contratos de la red Stellar.
+Aquí se implementa un contrato robusto con manejo de errores, control de acceso, almacenamiento persistente y pruebas automatizadas.
+
+### 🎯 Objetivos
+
+* Dominar `soroban-sdk` en Rust
+* Aplicar estructuras `Result` y `Error`
+* Manejar estado persistente y permisos de administrador
+* Crear y probar funciones inteligentes
+* Implementar **retos avanzados configurables**
+
+### 🧩 Estructura del proyecto
+
+```
+contracts/
+└── hello-world/
+    ├── Cargo.toml
+    ├── src/
+    │   ├── lib.rs       ← Lógica del contrato
+    │   └── test.rs      ← Tests unitarios
+    └── README.md
+```
+
+### 🧱 Funcionalidades principales
+
+| Función                                    | Descripción                                             |
+| ------------------------------------------ | ------------------------------------------------------- |
+| `initialize(env, admin)`                   | Inicializa el contrato y define el administrador.       |
+| `hello(env, usuario, nombre)`              | Registra saludos con validaciones y persistencia.       |
+| `get_contador(env)`                        | Retorna número total de saludos.                        |
+| `get_ultimo_saludo(env, usuario)`          | Devuelve último saludo de cada usuario.                 |
+| `reset_contador(env, caller)`              | Reinicia el contador global solo si el caller es admin. |
+| `get_contador_usuario(env, usuario)`       | Cuenta saludos individuales.                            |
+| `transfer_admin(env, caller, nuevo_admin)` | Transfiere el control del contrato.                     |
+| `set_limite(env, caller, limite)`          | Configura longitud máxima de nombres.                   |
+
+### 💾 Retos opcionales implementados
+
+| Reto                       | Descripción                                          | Estado |
+| -------------------------- | ---------------------------------------------------- | ------ |
+| 1️⃣ Contador por usuario   | Registra cuántas veces saludó cada Tiburona          | ✅      |
+| 2️⃣ Transferencia de admin | Permite cambiar el administrador                     | ✅      |
+| 3️⃣ Límite configurable    | El admin puede ajustar la longitud máxima de nombres | ✅      |
+
+### 🧪 Tests unitarios
+
+Incluyen escenarios de:
+
+* Inicialización y reintentos no válidos
+* Saludos exitosos
+* Errores por nombre vacío o exceso de caracteres
+* Reset de contador (autorizado/no autorizado)
+* Transferencia de admin y configuración de límite
+
+### ⚙️ Comandos útiles
+
+```bash
+cargo build --target wasm32-unknown-unknown --release
+cargo test
+soroban contract optimize --wasm target/wasm32-unknown-unknown/release/hello_world.wasm
+```
+
+### 🧠 Conceptos clave
+
+* Cómo usar `DataKey` y `Env::storage()` para persistir estado
+* Manejo de `Option`, `Result` y `Error` en contratos
+* Extensión de TTL y seguridad de datos
+* Diseño modular y escalable de contratos
+
+> “No solo escribí un Hello World. Escribí un contrato con control de acceso, manejo de errores, y buenas prácticas de producción.”
 
 ---
 
-## 🌟 Reflexión final  
+## 📘 Estructura general del repositorio
 
-Este ejercicio permite comprender los fundamentos de la red Stellar de forma práctica:  
-- Cómo se crean y financian cuentas.  
-- Cómo se envían transacciones seguras firmadas localmente.  
-- Cómo se consulta el estado de las cuentas en la blockchain.  
+```
+Codigo-Futura/
+├── 1ra-semana-js-wallet/
+│   ├── crear-cuenta.js
+│   ├── enviar-pago.js
+│   ├── consultar-balance.js
+│   └── wallet.js
+├── 2da-semana-rust-consolidado/
+│   └── hello-tiburona/
+│       ├── Cargo.toml
+│       ├── src/
+│       │   ├── lib.rs
+│       │   └── test.rs
+│       └── README.md
+└── README.md  ← (este archivo)
+```
 
-La wallet es una herramienta educativa que combina **JavaScript + Stellar SDK**, y te prepara para dar el siguiente paso: escribir **smart contracts en Rust con Soroban**.  
+---
 
-> “No busques perfección, busca progreso. Cada línea de código te acerca más a construir tu futuro.” 🦈⚡  
+## 🧭 Conclusión general
+
+Ambas tareas reflejan la evolución progresiva de un desarrollador blockchain en **Stellar**:
+de dominar las herramientas básicas con JavaScript y el SDK,
+a diseñar contratos inteligentes en Rust con estructura profesional.
+
+> 💬 “De crear wallets a crear contratos: cada semana una capa más profunda del ecosistema Stellar.”
